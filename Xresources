@@ -1,0 +1,54 @@
+xterm*termName:         xterm-256color
+XTerm.vt100.faceName:   Ubuntu Mono Regular:size=14
+XTerm.vt100.metaSendsEscape: true
+
+xterm*loginShell:       true
+xterm*eightBitInput:    false
+xterm*metaSendsEscape:  true
+xterm*utf8:             true
+xterm*locale:           true
+xterm*saveLines:        4096
+
+Xft.dpi:                106
+Xft.antialias:          true
+Xft.rgba:               rgb
+Xft.hinting:            true
+Xft.hintstyle:          hintslight fonts ubuntu
+
+!! Colors: ashen-light
+! special
+XTerm.vt100.foreground:    #464d53
+XTerm.vt100.background:    #f3f4f5
+XTerm.vt100.cursorColor:   #464d53
+
+! black
+XTerm.vt100.color0:        #1c2023
+XTerm.vt100.color8:        #5a6066
+
+! red
+XTerm.vt100.color1:        #af9983
+XTerm.vt100.color9:        #9d8a76
+
+! green
+XTerm.vt100.color2:        #7ea993
+XTerm.vt100.color10:       #74a68d
+
+! yellow
+XTerm.vt100.color3:        #95a97f
+XTerm.vt100.color11:       #92a77c
+
+! blue
+XTerm.vt100.color4:        #9f87b5
+XTerm.vt100.color12:       #8e7aa2
+
+! magenta
+XTerm.vt100.color5:        #ae8298
+XTerm.vt100.color13:       #a47b8f
+
+! cyan
+XTerm.vt100.color6:        #7c91a5
+XTerm.vt100.color14:       #8399af
+
+! white
+XTerm.vt100.color7:        #adb2b5
+XTerm.vt100.color15:       #f3f4f5

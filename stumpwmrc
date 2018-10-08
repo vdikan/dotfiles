@@ -1,0 +1,253 @@
+;; This is a -*- lisp -*- file.
+(in-package :stumpwm)
+
+;; Set ctrl-space as prefix sequence
+(set-prefix-key (kbd "C-SPC"))
+
+;;
+;; Appearance
+;; ideas from https://github.com/alezost/stumpwm-config/blob/master/visual.lisp
+;;
+;; Message window font
+;; (set-font "-xos4-terminus-medium-r-normal--20-140-72-72-c-80-iso8859-15")
+;; (set-font "-*-terminus-bold-r-*-*-22-*-*-*-*-*-iso8859-*")
+;; (set-font "10x20-cyrillic")
+(set-font "-*-terminus-medium-r-*-*-22-*-*-*-*-*-iso10646-1")
+;;
+;; Yellow and magenta are swapped to show keys in yellow.
+(setf *colors*
+      '("black" "red" "green" "magenta" "blue" "yellow" "cyan" "white"))
+(update-color-map (current-screen))
+
+(defmacro dix-set-color (val color)
+  "Similar to `set-any-color', but without updating colors."
+  `(dolist (s *screen-list*)
+     (setf (,val s) (alloc-color s ,color))))
+
+(dix-set-color screen-fg-color "DarkSeaGreen")
+(dix-set-color screen-bg-color "gray15")
+(dix-set-color screen-focus-color  "DarkGreen")
+(dix-set-color screen-border-color "DarkGreen")
+(dix-set-color screen-float-focus-color "ForestGreen")
+(dix-set-color screen-float-unfocus-color "gray15")
+(update-colors-all-screens)
+;;
+;; Grabbed pointer
+(setq
+ *grab-pointer-character* 40
+ *grab-pointer-character-mask* 41
+ *grab-pointer-foreground* (hex-to-xlib-color "#3db270")
+ *grab-pointer-background* (hex-to-xlib-color "#2c53ca"))
+;;
+;; Gravity
+(set-normal-gravity :center)
+(setf *message-window-gravity* :center)
+(setf *input-window-gravity* :bottom)
+;;
+;; MSI Keyboard colors (SteelSeries)
+(define-key *root-map* (kbd "s-c")   "exec msi_keyboard_colors.sh")
+;;
+;; Behaviour
+;;
+;;; Message after a part of key sequence
+;; Idea from <https://github.com/stumpwm/stumpwm/wiki/FAQ>.
+;;
+(defun key-seq-msg (key key-seq cmd)
+  "Show a message with current incomplete key sequence."
+  (declare (ignore key))
+  (or (eq *top-map* *resize-map*)
+      (stringp cmd)
+      (let ((*message-window-gravity* :bottom))
+        (message "~A" (print-key-seq (reverse key-seq))))))
+
+(add-hook *key-press-hook* 'key-seq-msg)
+;;
+;; Clear rules
+(clear-window-placement-rules)
+;;
+;;Set the mouse policy to focus follows mouse;
+(setf *mouse-focus-policy* :click) ;; :click, :ignore, :sloppy
+;;
+;; Exec shortcut
+(define-key *root-map* (kbd "c")   "exec")
+(define-key *root-map* (kbd "C-c") "exec")
+;; Banish mouse cursor
+(define-key *root-map* (kbd "C-v") "banish")
+;; Launch terminal
+(defcommand invoke-terminal () ()
+  "Run or raise xterm as omnipotent terminal emulator."
+  (run-or-raise "xterm" '(:title "xterm")))
+(define-key *root-map* (kbd "t") "invoke-terminal")
+(define-key *root-map* (kbd "C-t") "invoke-terminal")
+
+;; emacs client mode
+(defcommand invoke-emacsclient () ()
+  "Invoke emacsclient or run emacs."
+  (run-or-raise "exec emacsclient -c -a emacs" '(:title "emacs")))
+
+(define-key *root-map* (kbd "e")   "invoke-emacsclient")
+(define-key *root-map* (kbd "C-e") "invoke-emacsclient")
+(define-key *root-map* (kbd "s-e") "invoke-emacsclient")
+
+;; emacs capture - funny idea from setup with spacemacs
+;(defcommand emacs-capture (template-key)
+;  ((:key "Enter template key: "))
+;  "Capture X-selection with emacs acccording to chosen template."
+;  (invoke-emacsclient)
+;  (send-meta-key (current-screen) (kbd "C-c"))
+;  (send-meta-key (current-screen) (kbd "c"))
+;  (send-meta-key (current-screen) template-key)
+;  (send-meta-key (current-screen) (kbd "i"))
+;  (window-send-string (get-x-selection))
+;  (send-meta-key (current-screen) (kbd "ESC")))
+
+;(define-key *root-map* (kbd "C-`") "emacs-capture q")
+;(define-key *root-map* (kbd "C-M-`") "emacs-capture t")
+;(define-key *root-map* (kbd "C-.") "emacs-capture e")
+
+;; chromium
+(defprogram-shortcut invoke-chromium :command "chromium-browser"
+  :props '(:role "browser")
+  :map *root-map* :key (kbd "b"))
+(define-key *root-map* (kbd "C-b") "invoke-chromium")
+
+;; Lock screen and Suspend
+(define-key *root-map* (kbd "M-l") "exec mate-screensaver-command -l && systemctl suspend")
+;(define-key *root-map* (kbd "M-l") "exec systemctl suspend")
+;; Screenshot
+(define-key *root-map* (kbd "M-s") "exec mate-screenshot -i")
+;;
+;; prompt the user for an interactive command. The first arg is an
+;; optional initial contents.
+(defcommand colon1 (&optional (initial "")) (:rest)
+  (let ((cmd (read-one-line (current-screen) ": " :initial-input initial)))
+    (when cmd
+      (eval-command cmd t))))
+;;
+;; Adjust brightness
+(define-key *root-map* (kbd "M-b") "colon1 exec xbacklight -set ")
+;;
+;; Browse somewhere
+(define-key *root-map* (kbd "o") "colon1 exec chromium-browser http://www.")
+;;
+;; Web Jumps (for search engines)
+(defmacro make-web-jump (name prefix)
+  `(defcommand ,(intern name) (search) ((:rest ,(concatenate 'string name " query: ")))
+    (substitute #\+ #\Space search)
+    (run-shell-command (concatenate 'string "chromium-browser " ,prefix search))))
+
+(make-web-jump "google-search"    "http://www.google.ru/search?q=")
+(make-web-jump "academia-search"  "http://www.google.ru/scholar?q=")
+(make-web-jump "libgen-search"    "https://libgen.pw/search?q=")
+(make-web-jump "yandex-search"    "http://yandex.ru/search/?text=")
+(make-web-jump "video-search"     "http://www.youtube.com/results?search_query=")
+(make-web-jump "imdb-search"      "http://www.imdb.com/find?q=")
+(make-web-jump "kinopoisk-search" "http://www.kinopoisk.ru/index.php/kp_query=")
+(make-web-jump "rutracker-search" "http://www.rutracker.org/forum/tracker.php?nm=")
+(make-web-jump "picture-search"   "http://www.yandex.ru/images/search/?text=")
+
+(defvar *web-search-bindings*
+  (let ((m (make-sparse-keymap)))
+    (define-key m (kbd "/") "google-search")
+    (define-key m (kbd "g") "google-search")
+    (define-key m (kbd "a") "academia-search")
+    (define-key m (kbd "l") "libgen-search")
+    (define-key m (kbd "y") "yandex-search")
+    (define-key m (kbd "v") "video-search")
+    (define-key m (kbd "i") "imdb-search")
+    (define-key m (kbd "k") "kinopoisk-search")
+    (define-key m (kbd "t") "rutracker-search")
+    (define-key m (kbd "p") "picture-search")
+    m ; NOTE: this is important
+  ))
+
+(define-key *root-map* (kbd "C-/") '*web-search-bindings*)
+(define-key *root-map* (kbd "/")   '*web-search-bindings*)
+
+;; Contrib add-ons
+;;
+;; Keyboard layouts
+(add-to-load-path "~/stumpwm/contrib/util/kbd-layouts")
+(load-module "kbd-layouts")
+(kbd-layouts::keyboard-layout-list "us" "ru")
+
+;; Amixer
+(add-to-load-path "~/stumpwm/contrib/media/amixer")
+(load-module "amixer")
+(define-key *top-map* (kbd "XF86AudioLowerVolume") "amixer-Master-1-")
+(define-key *top-map* (kbd "XF86AudioRaiseVolume") "amixer-Master-1+")
+(define-key *top-map* (kbd "XF86AudioMute") "amixer-Master-toggle pulse")
+
+;; WiFi
+(add-to-load-path "~/stumpwm/contrib/modeline/wifi")
+(load-module "wifi")
+
+;; CPU
+(add-to-load-path "~/stumpwm/contrib/modeline/cpu")
+(load-module "cpu")
+
+;; Tray
+(add-to-load-path "~/stumpwm/contrib/util/stumptray")
+(load-module "stumptray")
+
+;;
+;; Modeline
+;;
+;; modeline foreground color
+(setf *mode-line-foreground-color* "LightSteelBlue")
+;; modeline border color
+(setf *mode-line-border-color* "DarkGreen")
+;;
+;; (toggle-mode-line (current-screen) (current-head))
+(setf stumpwm:*screen-mode-line-format*
+      (list ;"%w || "
+            "%d || "
+            "%I || "
+            "BATT: " '(:eval (run-shell-command "upower -i $(upower -e | grep \'BAT\') | grep percentage | awk \'\{printf $(NF)\}\'" t)) " || "
+            "%c"))
+(setf *mode-line-position* :bottom)
+;;
+(defcommand show-tray () ()
+  "Shortcut for modeline and stumptray."
+  (run-commands "mode-line" "stumptray"))
+(define-key *root-map* (kbd "y") "show-tray")
+
+;;
+;; My custom modules playground
+;;
+;; My Pomodoro tracker in Stump
+(add-to-load-path "~/quicklisp/local-projects/stump-pomodoro")
+(load-module "stump-pomodoro")
+
+(defvar *stump-pomodoro-bindings*
+  (let ((m (make-sparse-keymap)))
+    (define-key m (kbd "]") "pomodoro-dash")
+    (define-key m (kbd "[") "pomodoro-status")
+    (define-key m (kbd "s") "pomodoro-start-timer")
+    (define-key m (kbd "c") "pomodoro-cancel-timer")
+    (define-key m (kbd "r") "pomodoro-reset-series")
+    m ))
+
+(define-key *root-map* (kbd "]") '*stump-pomodoro-bindings*)
+
+;;
+;; Startup commands
+;;
+(defvar *stumpwm-first-load* t
+  "Indicates if it is a startup first load of stumpwmrc file.")
+
+(defun exec-startup-commands ()
+  "Execute sequence of startup commands if it's the first time stumpwmrc is loaded."
+  (if *stumpwm-first-load*
+      (progn
+        (setf *stumpwm-first-load* nil)
+        (run-commands "exec setxkbmap -option ctrl:swapcaps")
+        (run-commands "exec emacs --daemon")
+        ;; (run-commands "exec launch_dropbox.sh")
+        (run-commands "exec mate-screensaver")
+        (run-commands "exec launch_redshift.sh")
+        (run-commands "exec feh --bg-fill ~/Desktop/wallpaper.png")
+        (run-commands "exec msi_keyboard_colors.sh")
+        (run-commands "mode-line" "stumptray"))))
+
+(exec-startup-commands)

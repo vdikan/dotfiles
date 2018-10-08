@@ -1,0 +1,4 @@
+* TODO [0/2] notes
+  - [ ] hsplit and vsplit - same style for tmux and stump
+  - [ ] install.sh
+  - [ ] zsh correct prompt
