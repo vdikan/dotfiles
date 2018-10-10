@@ -1,4 +1,15 @@
-* TODO [0/2] notes
-  - [ ] hsplit and vsplit - same style for tmux and stump
-  - [ ] install.sh
-  - [ ] zsh correct prompt
+* My minimal-techno dotfiles set
+
+As times goes by, I find myself in need of only few pieces of system  software.
+
+That is: *StumpWM* for as DE, *tmux* + *zsh* as terminal with colors from
+*Xresources*. And *emacs*, but that's another story...
+
+The setup is rough in places, some non-universal settings are hardwired.
+I don't care as long as things remain concise and simple.
+
+Inspiration taken from this post:
+
+** TODO notes
+   - +same vim-style window-splitting in tmux and stump+
+   - correct git prompt in zsh

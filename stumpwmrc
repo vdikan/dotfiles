@@ -19,17 +19,17 @@
       '("black" "red" "green" "magenta" "blue" "yellow" "cyan" "white"))
 (update-color-map (current-screen))
 
-(defmacro dix-set-color (val color)
+(defmacro my-stump-set-color (val color)
   "Similar to `set-any-color', but without updating colors."
   `(dolist (s *screen-list*)
      (setf (,val s) (alloc-color s ,color))))
 
-(dix-set-color screen-fg-color "DarkSeaGreen")
-(dix-set-color screen-bg-color "gray15")
-(dix-set-color screen-focus-color  "DarkGreen")
-(dix-set-color screen-border-color "DarkGreen")
-(dix-set-color screen-float-focus-color "ForestGreen")
-(dix-set-color screen-float-unfocus-color "gray15")
+(my-stump-set-color screen-fg-color "DarkSeaGreen")
+(my-stump-set-color screen-bg-color "gray15")
+(my-stump-set-color screen-focus-color  "DarkGreen")
+(my-stump-set-color screen-border-color "DarkGreen")
+(my-stump-set-color screen-float-focus-color "ForestGreen")
+(my-stump-set-color screen-float-unfocus-color "gray15")
 (update-colors-all-screens)
 ;;
 ;; Grabbed pointer
@@ -67,6 +67,10 @@
 ;;
 ;;Set the mouse policy to focus follows mouse;
 (setf *mouse-focus-policy* :click) ;; :click, :ignore, :sloppy
+;;
+;; Shortcuts to split windows: same as in tmux
+(define-key *root-map* (kbd "V")   "hsplit")
+(define-key *root-map* (kbd "H")   "vsplit")
 ;;
 ;; Exec shortcut
 (define-key *root-map* (kbd "c")   "exec")
