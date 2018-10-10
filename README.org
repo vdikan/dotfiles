@@ -9,7 +9,8 @@ The setup is rough in places, some non-universal settings are hardwired.
 I don't care as long as things remain concise and simple.
 
 Inspiration taken from this post:
+https://zserge.com/blog/terminal.html
 
-** TODO notes
+** TODO future notes
    - +same vim-style window-splitting in tmux and stump+
    - correct git prompt in zsh
