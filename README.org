@@ -13,4 +13,7 @@ https://zserge.com/blog/terminal.html
 
 ** TODO future notes
    - +same vim-style window-splitting in tmux and stump+
+   - tmux
+     - clipboard copy/paste selection
+     - invoke by default in stump
    - correct git prompt in zsh
