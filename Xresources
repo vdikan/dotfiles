@@ -17,38 +17,38 @@ Xft.hintstyle:          hintslight fonts ubuntu
 
 !! Colors: ashen-light
 ! special
-XTerm.vt100.foreground:    #464d53
-XTerm.vt100.background:    #f3f4f5
-XTerm.vt100.cursorColor:   #464d53
+XTerm.vt100.foreground:      #1c2027
+XTerm.vt100.background:      #efeff9
+XTerm.vt100.cursorColor:     #1c2027
 
 ! black
-XTerm.vt100.color0:        #1c2023
-XTerm.vt100.color8:        #5a6066
+XTerm.vt100.color0:          #192033
+XTerm.vt100.color8:          #666666
 
 ! red
-XTerm.vt100.color1:        #af9983
-XTerm.vt100.color9:        #9d8a76
+XTerm.vt100.color1:          #a62a3e
+XTerm.vt100.color9:          #f04758
 
 ! green
-XTerm.vt100.color2:        #7ea993
-XTerm.vt100.color10:       #74a68d
+XTerm.vt100.color2:          #38912b
+XTerm.vt100.color10:         #93c724
 
 ! yellow
-XTerm.vt100.color3:        #95a97f
-XTerm.vt100.color11:       #92a77c
+XTerm.vt100.color3:          #b27d12
+XTerm.vt100.color11:         #ddb62b
 
 ! blue
-XTerm.vt100.color4:        #9f87b5
-XTerm.vt100.color12:       #8e7aa2
+XTerm.vt100.color4:          #355c9a
+XTerm.vt100.color12:         #45a3e6
 
 ! magenta
-XTerm.vt100.color5:        #ae8298
-XTerm.vt100.color13:       #a47b8f
+XTerm.vt100.color5:          #7c4f9f
+XTerm.vt100.color13:         #c953ef
 
 ! cyan
-XTerm.vt100.color6:        #7c91a5
-XTerm.vt100.color14:       #8399af
+XTerm.vt100.color6:          #258f8f
+XTerm.vt100.color14:         #60c6c8
 
 ! white
-XTerm.vt100.color7:        #adb2b5
-XTerm.vt100.color15:       #f3f4f5
+XTerm.vt100.color7:          #77858c
+XTerm.vt100.color15:         #c0c0c0
