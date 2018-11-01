@@ -21,7 +21,7 @@ setopt HIST_IGNORE_SPACE
 # Correct spelling of all arguments in the command line
 setopt CORRECT_ALL
 # Enable autocompletion
-zstyle ':completion:*' completer _complete _correct _approximate
+zstyle ':completion:*' completer _complete _approximate
 
 # Prompt
 # NOTE VCS_INFO prompt is incorrect.
