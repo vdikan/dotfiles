@@ -33,6 +33,3 @@ _setup_ps1
 # user-friendly command output
 export CLICOLOR=1
 ls --color=auto &> /dev/null && alias ls='ls --color=auto'
-
-# aliases
-alias ec="emacsclient -nw"
