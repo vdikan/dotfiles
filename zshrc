@@ -80,6 +80,9 @@ real_aliases=(
 ); def_real_aliases
 
 global_aliases=(
+  ecl "emacsclient -c"  # emacs in window
+  ec "emacsclient -nw"  # emacs in shell
+
   :: ':>!'
 
   B '`git rev-parse --abbrev-ref HEAD`'
