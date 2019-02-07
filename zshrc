@@ -27,7 +27,7 @@ zstyle ':completion:*' completer _complete _approximate
 _setup_ps1() {
 #  vcs_info
   GLYPH="↪"
-  PS1=" %(?.%F{blue}.%F{red})$GLYPH%f %(1j.%F{cyan}[%j]%f .)%F{blue}%~%f "
+  PS1=" %(?.%F{blue}.%F{red})$GLYPH%f %(1j.%F{cyan}[%j]%f .)%F{blue}%2~%f "
 }
 _setup_ps1
 
