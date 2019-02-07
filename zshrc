@@ -150,3 +150,22 @@ funs=(
   poweroff "s poweroff"
   halt "s halt -p"
 ); def_funs
+
+
+# Saving and restoring directory stack:
+function z! () {
+  dirs -lv | awk -F '\t' '{print $2}' | tac >! $HOME/.z
+  exec zsh
+}
+
+function z+ () {
+  if [[ -f $HOME/.z ]]; then
+      local pwd=$PWD
+
+      while read -r line; do
+        pushd "$line"
+      done < $HOME/.z
+
+      pushd $pwd
+  fi
+}
