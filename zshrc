@@ -135,6 +135,11 @@ funs=(
   lr "l -R"
   lk "la -l"
 
+  # t "tree"
+  # t1 "tree -L 1"
+  # t2 "tree -L 2"
+  # t3 "tree -L 3"
+
   sl "ln -sf"
   md "mkdir -p"
 
@@ -169,3 +174,16 @@ function z+ () {
       pushd $pwd
   fi
 }
+
+# Aliases for tree-ing:
+function t () {
+    if [[ "$1" == [0-9] ]]; then
+        tree -L $@
+    else
+        tree $@
+    fi
+}
+
+for n in {1..9}; do
+    def_global_alias t$n "t "$n;
+done
