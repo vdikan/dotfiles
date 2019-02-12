@@ -208,7 +208,7 @@
             "%d || "
             "%I || "
             "BATT: " '(:eval (run-shell-command "upower -i $(upower -e | grep \'BAT\') | grep percentage | awk \'\{printf $(NF)\}\'" t)) " || "
-            "%c"))
+            "%C"))
 (setf *mode-line-position* :bottom)
 ;;
 (defcommand show-tray () ()
