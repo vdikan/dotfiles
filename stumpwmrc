@@ -190,6 +190,10 @@
 (add-to-load-path "~/stumpwm/contrib/modeline/cpu")
 (load-module "cpu")
 
+;; Mem
+(add-to-load-path "~/stumpwm/contrib/modeline/mem")
+(load-module "mem")
+
 ;; Tray
 (add-to-load-path "~/stumpwm/contrib/util/stumptray")
 (load-module "stumptray")
@@ -205,10 +209,11 @@
 ;; (toggle-mode-line (current-screen) (current-head))
 (setf stumpwm:*screen-mode-line-format*
       (list ;"%w || "
-            "%d || "
-            "%I || "
-            "BATT: " '(:eval (run-shell-command "upower -i $(upower -e | grep \'BAT\') | grep percentage | awk \'\{printf $(NF)\}\'" t)) " || "
-            "%C"))
+       "%d || "
+       "%I || "
+       "BATT: " '(:eval (run-shell-command "upower -i $(upower -e | grep \'BAT\') | grep percentage | awk \'\{printf $(NF)\}\'" t)) " || "
+       "%M|| "
+       "%C"))
 (setf *mode-line-position* :bottom)
 ;;
 (defcommand show-tray () ()
