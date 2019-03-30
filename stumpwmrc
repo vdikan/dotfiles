@@ -214,7 +214,10 @@
 (defcommand show-tray () ()
   "Shortcut for modeline and stumptray."
   (run-commands "mode-line" "stumptray"))
-(define-key *root-map* (kbd "y") "show-tray")
+;; Removed the tray toggle of tray.
+;; Let it be on all the time; toggling a widow to-from
+;; full-screen mode is more handy.
+;; (define-key *root-map* (kbd "y") "show-tray")
 
 ;;
 ;; My custom modules playground
@@ -247,7 +250,6 @@
         (setf *stumpwm-first-load* nil)
         (run-commands "exec setxkbmap -option ctrl:swapcaps")
         (run-commands "exec emacs --daemon")
-        ;; (run-commands "exec launch_dropbox.sh")
         (run-commands "exec mate-screensaver")
         (run-commands "exec launch_redshift.sh")
         (run-commands "exec feh --bg-fill ~/Desktop/wallpaper.png")
