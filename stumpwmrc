@@ -259,6 +259,8 @@
         (run-commands "exec launch_redshift.sh")
         (run-commands "exec feh --bg-fill ~/Desktop/wallpaper.png")
         (run-commands "exec msi_keyboard_colors.sh")
+        (run-commands "exec nm-applet") ; network-manager tray applet
+        (run-commands "exec modprobe btusb && blueman-applet") ; bluetooth kernel module and applet
         (run-commands "mode-line" "stumptray"))))
 
 (exec-startup-commands)
