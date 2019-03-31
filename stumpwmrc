@@ -168,6 +168,10 @@
 (define-key *root-map* (kbd "C-/") '*web-search-bindings*)
 (define-key *root-map* (kbd "/")   '*web-search-bindings*)
 
+;; Touchpad on-off. Toggle icon is painted on my F3.
+(define-key *root-map* (kbd "M-F3") "exec synclient TouchpadOff=1")
+(define-key *root-map* (kbd "C-F3") "exec synclient TouchpadOff=0")
+
 ;; Contrib add-ons
 ;;
 ;; Keyboard layouts
