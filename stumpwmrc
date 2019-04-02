@@ -209,10 +209,9 @@
 ;;
 ;; Modeline
 ;;
-;; modeline foreground color
-(setf *mode-line-foreground-color* "LightSteelBlue")
-;; modeline border color
-(setf *mode-line-border-color* "DarkGreen")
+(setf *mode-line-foreground-color* "#f0f0f0")
+(setf *mode-line-background-color* "#20204d")
+(setf *mode-line-border-color* "#6f9fff")
 ;;
 ;; (toggle-mode-line (current-screen) (current-head))
 (setf stumpwm:*screen-mode-line-format*
