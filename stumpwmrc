@@ -1,6 +1,8 @@
 ;; This is a -*- lisp -*- file.
 (in-package :stumpwm)
 
+(require :swank)
+
 ;; Set ctrl-space as prefix sequence
 (set-prefix-key (kbd "C-SPC"))
 
@@ -16,20 +18,22 @@
 ;;
 ;; Yellow and magenta are swapped to show keys in yellow.
 (setf *colors*
-      '("black" "red" "green" "magenta" "blue" "yellow" "cyan" "white"))
-(update-color-map (current-screen))
+      ;; '("black" "red" "green" "magenta" "blue" "yellow" "cyan" "white"))
+      '("#20204d" "red" "#6f9fff" "magenta" "blue" "#f0f0f0" "lightskyblue" "cyan"))
+(update-color-map (current-screen))     ; which other color maps to upgrade?
 
 (defmacro my-stump-set-color (val color)
   "Similar to `set-any-color', but without updating colors."
   `(dolist (s *screen-list*)
      (setf (,val s) (alloc-color s ,color))))
 
-(my-stump-set-color screen-fg-color "DarkSeaGreen")
-(my-stump-set-color screen-bg-color "gray15")
-(my-stump-set-color screen-focus-color  "DarkGreen")
-(my-stump-set-color screen-border-color "DarkGreen")
-(my-stump-set-color screen-float-focus-color "ForestGreen")
-(my-stump-set-color screen-float-unfocus-color "gray15")
+(my-stump-set-color screen-fg-color "lightskyblue")
+(my-stump-set-color screen-bg-color "#20204d")
+(my-stump-set-color screen-focus-color  "#6f9fff")
+(my-stump-set-color screen-unfocus-color  "#20204d")
+(my-stump-set-color screen-border-color "#6f9fff")
+(my-stump-set-color screen-float-focus-color "#6f9fff")
+(my-stump-set-color screen-float-unfocus-color "#20204d")
 (update-colors-all-screens)
 ;;
 ;; Grabbed pointer
@@ -257,6 +261,10 @@
   (if *stumpwm-first-load*
       (progn
         (setf *stumpwm-first-load* nil)
+        (swank-loader:init)             ; swank stumpwm server
+        (swank:create-server :port 4004
+                             :style swank:*communication-style*
+                             :dont-close t)
         (run-commands "exec setxkbmap -option ctrl:swapcaps")
         (run-commands "exec emacs --daemon")
         (run-commands "exec mate-screensaver")
