@@ -46,7 +46,7 @@
 ;; Gravity
 (set-normal-gravity :center)
 (setf *message-window-gravity* :center)
-(setf *input-window-gravity* :bottom)
+(setf *input-window-gravity* :center)
 ;;
 ;; MSI Keyboard colors (SteelSeries)
 (define-key *root-map* (kbd "s-c")   "exec msi_keyboard_colors.sh")
@@ -61,7 +61,7 @@
   (declare (ignore key))
   (or (eq *top-map* *resize-map*)
       (stringp cmd)
-      (let ((*message-window-gravity* :bottom))
+      (let ((*message-window-gravity* :center))
         (message "~A" (print-key-seq (reverse key-seq))))))
 
 (add-hook *key-press-hook* 'key-seq-msg)
