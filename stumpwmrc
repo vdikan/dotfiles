@@ -117,11 +117,11 @@
 ;(define-key *root-map* (kbd "C-M-`") "emacs-capture t")
 ;(define-key *root-map* (kbd "C-.") "emacs-capture e")
 
-;; chromium
-(defprogram-shortcut invoke-chromium :command "chromium-browser"
+;; browser
+(defprogram-shortcut invoke-browser :command "sensible-browser"
   :props '(:role "browser")
   :map *root-map* :key (kbd "b"))
-(define-key *root-map* (kbd "C-b") "invoke-chromium")
+(define-key *root-map* (kbd "C-b") "invoke-browser")
 
 ;; Lock screen and Suspend
 (define-key *root-map* (kbd "M-l") "exec mate-screensaver-command -l && systemctl suspend")
@@ -132,21 +132,22 @@
 ;; prompt the user for an interactive command. The first arg is an
 ;; optional initial contents.
 (defcommand colon1 (&optional (initial "")) (:rest)
-  (let ((cmd (read-one-line (current-screen) ": " :initial-input initial)))
-    (when cmd
-      (eval-command cmd t))))
+            (let ((cmd (read-one-line (current-screen) ": " :initial-input initial)))
+              (when cmd
+                (eval-command cmd t))))
 ;;
-;; Adjust brightness
-(define-key *root-map* (kbd "M-b") "colon1 exec xbacklight -set ")
+;; Adjust brightness - now in redshift's settings
+;; (define-key *root-map* (kbd "M-b") "colon1 exec xbacklight -set ")
+;; (define-key *root-map* (kbd "M-b") "colon1 exec xrandr --output eDP-1 --brightness 0.8")
 ;;
 ;; Browse somewhere
-(define-key *root-map* (kbd "o") "colon1 exec chromium-browser http://www.")
+(define-key *root-map* (kbd "o") "colon1 exec sensible-browser http://www.")
 ;;
 ;; Web Jumps (for search engines)
 (defmacro make-web-jump (name prefix)
   `(defcommand ,(intern name) (search) ((:rest ,(concatenate 'string name " query: ")))
     (substitute #\+ #\Space search)
-    (run-shell-command (concatenate 'string "chromium-browser " ,prefix search))))
+    (run-shell-command (concatenate 'string "sensible-browser " ,prefix search))))
 
 (make-web-jump "google-search"    "http://www.google.ru/search?q=")
 (make-web-jump "academia-search"  "http://www.google.ru/scholar?q=")
@@ -207,7 +208,7 @@
 (load-module "mem")
 
 ;; Tray
-(add-to-load-path "~/stumpwm/contrib/util/stumptray")
+(add-to-load-path "~/stumpwm/contrib/modeline/stumptray")
 (load-module "stumptray")
 
 ;;
