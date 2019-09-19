@@ -102,25 +102,27 @@
 (define-key *root-map* (kbd "s-e") "invoke-emacsclient")
 
 ;; emacs capture - funny idea from setup with spacemacs
-;(defcommand emacs-capture (template-key)
-;  ((:key "Enter template key: "))
-;  "Capture X-selection with emacs acccording to chosen template."
-;  (invoke-emacsclient)
-;  (send-meta-key (current-screen) (kbd "C-c"))
-;  (send-meta-key (current-screen) (kbd "c"))
-;  (send-meta-key (current-screen) template-key)
-;  (send-meta-key (current-screen) (kbd "i"))
-;  (window-send-string (get-x-selection))
-;  (send-meta-key (current-screen) (kbd "ESC")))
+(defcommand emacs-capture (template-key)
+  ((:key "Enter template key: "))
+  "Capture X-selection with emacs acccording to chosen template."
+  (send-meta-key (current-screen) (kbd "C-c"))
+  (invoke-emacsclient)
+  (send-meta-key (current-screen) (kbd "SPC"))
+  (send-meta-key (current-screen) (kbd "c"))
+  (send-meta-key (current-screen) (kbd "c"))
+  (send-meta-key (current-screen) template-key)
+  (send-meta-key (current-screen) (kbd "p"))
+  ;; (send-meta-key (current-screen) (kbd "i"))
+  ;; (window-send-string (get-x-selection))
+  (send-meta-key (current-screen) (kbd "ESC")))
 
-;(define-key *root-map* (kbd "C-`") "emacs-capture q")
-;(define-key *root-map* (kbd "C-M-`") "emacs-capture t")
-;(define-key *root-map* (kbd "C-.") "emacs-capture e")
+(define-key *root-map* (kbd "C-M-q") "emacs-capture q")
+(define-key *root-map* (kbd "C-M-t") "emacs-capture t")
 
 ;; browser
 (defprogram-shortcut invoke-browser :command "sensible-browser"
-  :props '(:role "browser")
-  :map *root-map* :key (kbd "b"))
+                     :props '(:role "browser")
+                     :map *root-map* :key (kbd "b"))
 (define-key *root-map* (kbd "C-b") "invoke-browser")
 
 ;; Lock screen and Suspend
