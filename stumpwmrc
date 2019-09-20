@@ -85,12 +85,12 @@
 (define-key *root-map* (kbd "C-c") "exec")
 ;; Banish mouse cursor
 (define-key *root-map* (kbd "C-v") "banish")
-;; Launch terminal
-(defcommand invoke-terminal () ()
-  "Run or raise xterm as omnipotent terminal emulator."
-  (run-or-raise "xterm" '(:title "xterm")))
-(define-key *root-map* (kbd "t") "invoke-terminal")
-(define-key *root-map* (kbd "C-t") "invoke-terminal")
+;; Launch separate xterm terminal - old way
+;; (defcommand invoke-terminal () ()
+;;   "Run or raise xterm as omnipotent terminal emulator."
+;;   (run-or-raise "xterm" '(:title "xterm")))
+;; (define-key *root-map* (kbd "t") "invoke-terminal")
+;; (define-key *root-map* (kbd "C-t") "invoke-terminal")
 
 ;; emacs client mode
 (defcommand invoke-emacsclient () ()
@@ -100,6 +100,16 @@
 (define-key *root-map* (kbd "e")   "invoke-emacsclient")
 (define-key *root-map* (kbd "C-e") "invoke-emacsclient")
 (define-key *root-map* (kbd "s-e") "invoke-emacsclient")
+
+;; Launch shell in emacs
+(defcommand invoke-emacs-shell () ()
+            "Raise emacs, launch shell."
+            (invoke-emacsclient)
+            (send-meta-key (current-screen) (kbd "M-x"))
+            (window-send-string "shell")
+            (send-meta-key (current-screen) (kbd "RET")))
+(define-key *root-map* (kbd "t") "invoke-emacs-shell")
+(define-key *root-map* (kbd "C-t") "invoke-emacs-shell")
 
 ;; emacs capture - funny idea from setup with spacemacs
 (defcommand emacs-capture (template-key)
