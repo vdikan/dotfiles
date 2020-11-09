@@ -1,6 +1,9 @@
 xterm*termName:         xterm-256color
-XTerm.vt100.faceName:   Ubuntu Mono Regular:size=14
+!XTerm.vt100.faceName:   Anonymous Pro:size=16
+
+XTerm.vt100.faceName:   terminus-24
 XTerm.vt100.metaSendsEscape: true
+
 
 xterm*loginShell:       true
 xterm*eightBitInput:    false
@@ -52,3 +55,25 @@ XTerm.vt100.color14:         #60c6c8
 ! white
 XTerm.vt100.color7:          #77858c
 XTerm.vt100.color15:         #c0c0c0
+
+! FriCAS interface
+FriCAS.hyperdoc.FormGeometry: =1200x700+40+40
+FriCAS.hyperdoc.Geometry: =1200x700+40+40
+
+FriCAS.hyperdoc.RmFont:         -xos4-terminus-medium-r-normal--28-280-72-72-c-140-iso10646-1
+FriCAS.hyperdoc.RmColor:        #192033
+
+FriCAS.hyperdoc.ActiveFont:     -xos4-terminus-bold-r-normal--28-280-72-72-c-140-iso10646-1
+FriCAS.hyperdoc.ActiveColor:    #355c9a
+
+FriCAS.hyperdoc.FriCASFont:     -xos4-terminus-bold-r-normal--28-280-72-72-c-140-iso10646-1
+FriCAS.hyperdoc.FriCASColor:    #a62a3e
+
+FriCAS.hyperdoc.BoldFont:       -xos4-terminus-bold-r-normal--28-280-72-72-c-140-iso10646-1
+FriCAS.hyperdoc.BoldColor:      #1c2027
+
+FriCAS.hyperdoc.TtFont:         -xos4-terminus-medium-r-normal--28-280-72-72-c-140-iso10646-1
+FriCAS.hyperdoc.TtColor:        #192033
+
+FriCAS.hyperdoc.EmphasizeFont:  -xos4-terminus-bold-r-normal--28-280-72-72-c-140-iso10646-1
+FriCAS.hyperdoc.EmphasizeColor: #f04758
