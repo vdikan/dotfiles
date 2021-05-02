@@ -1,7 +1,6 @@
 xterm*termName:         xterm-256color
-!XTerm.vt100.faceName:   Anonymous Pro:size=16
-
-XTerm.vt100.faceName:   terminus-24
+XTerm.vt100.faceName:   Anonymous Pro:size=16
+!XTerm*faceName:  	terminus-24
 XTerm.vt100.metaSendsEscape: true
 
 
@@ -18,45 +17,57 @@ Xft.rgba:               rgb
 Xft.hinting:            true
 Xft.hintstyle:          hintslight fonts ubuntu
 
-!! Colors: ashen-light
-! special
-XTerm.vt100.foreground:      #1c2027
-XTerm.vt100.background:      #efeff9
-XTerm.vt100.cursorColor:     #1c2027
 
-! black
-XTerm.vt100.color0:          #192033
-XTerm.vt100.color8:          #666666
+!! Copy-Paste:
+xterm*VT100.Translations: #override \
+                 Ctrl Shift <Key>V:    insert-selection(CLIPBOARD) \n\
+                 Ctrl Shift <Key>C:    copy-selection(CLIPBOARD)
 
-! red
-XTerm.vt100.color1:          #a62a3e
-XTerm.vt100.color9:          #f04758
 
-! green
-XTerm.vt100.color2:          #38912b
-XTerm.vt100.color10:         #93c724
+!! Tweaked Cobalt2 theme:
+XTerm.vt100.foreground:      #ffffff
+XTerm.vt100.background:      #132738
+XTerm.vt100.cursorColor:     #7b68ee
+!
+! Black
+XTerm.vt100.color0:          #000000
+XTerm.vt100.color8:          #555555
+!
+! Red
+XTerm.vt100.color1:          #ff0000
+XTerm.vt100.color9:          #f40e17
+!
+! Green
+XTerm.vt100.color2:          #38de21
+XTerm.vt100.color10:         #3bd01d
+!
+! Yellow
+XTerm.vt100.color3:          #ffe50a
+XTerm.vt100.color11:         #edc809
+!
+! Blue
+XTerm.vt100.color4:          #1460d2
+XTerm.vt100.color12:         #5555ff
+!
+! Magenta
+XTerm.vt100.color5:          #ff005d
+XTerm.vt100.color13:         #ff55ff
+!
+! Cyan
+XTerm.vt100.color6:          #00bbbb
+XTerm.vt100.color14:         #6ae3fa
+!
+! White
+XTerm.vt100.color7:          #bbbbbb
+XTerm.vt100.color15:         #ffffff
+!
+! Bold, Italic, Underline
+XTerm.vt100.colorBD:         #f7fcff
+!*.colorIT:
+!*.colorUL:
 
-! yellow
-XTerm.vt100.color3:          #b27d12
-XTerm.vt100.color11:         #ddb62b
 
-! blue
-XTerm.vt100.color4:          #355c9a
-XTerm.vt100.color12:         #45a3e6
-
-! magenta
-XTerm.vt100.color5:          #7c4f9f
-XTerm.vt100.color13:         #c953ef
-
-! cyan
-XTerm.vt100.color6:          #258f8f
-XTerm.vt100.color14:         #60c6c8
-
-! white
-XTerm.vt100.color7:          #77858c
-XTerm.vt100.color15:         #c0c0c0
-
-! FriCAS interface
+!! FriCAS interface
 FriCAS.hyperdoc.FormGeometry: =1200x700+40+40
 FriCAS.hyperdoc.Geometry: =1200x700+40+40
 
@@ -77,3 +88,9 @@ FriCAS.hyperdoc.TtColor:        #192033
 
 FriCAS.hyperdoc.EmphasizeFont:  -xos4-terminus-bold-r-normal--28-280-72-72-c-140-iso10646-1
 FriCAS.hyperdoc.EmphasizeColor: #f04758
+
+!FriCAS.hyperdoc.EmphasizeColor:  #800080
+FriCAS.hyperdoc.InputBackground: #FFFF80
+FriCAS.hyperdoc.InputForeground: black
+FriCAS.hyperdoc.BorderColor: black
+FriCAS.hyperdoc.Background: white
