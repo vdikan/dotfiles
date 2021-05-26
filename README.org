@@ -1,3 +1,5 @@
 * My minimal-techno dotfiles set, reduced only for terminal setup
 
+[deprecated] /Now it is a part of ansible setup./
+
 Other conf files are moved somewhere else for reasons...
